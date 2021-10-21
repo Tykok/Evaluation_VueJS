@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Balise meta -->
+    <meta charset="UTF-8">
+
+    <!--Jquery CDN-->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+    <!--Materialize CDN-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <!--Vue CDN-->
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+
+<body>
+
+    <div id="app">
+
+        <center>
+            <div class="row">
+                <h1>To-do List en Vue.JS</h1>
+            </div>
+            <br><br>
+            <div class="row">
+                <a class="waves-effect waves-light btn modal-trigger" href="#modal_add_tache">Créer une tâche</a>
+
+                <!-- Modal Structure -->
+                <div id="modal_add_tache" class="modal">
+                    <div class="modal-content">
+                        <h4>Créer une tâche</h4>
+                        <p>Donner une description à votre tâche :</p>
+
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <input id="description_todo" type="text" class="validate" v-model="description">
+                                <label for="description_todo">Description de la tâche</label>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <a href="#!" class="modal-close waves-effect waves-green btn-flat"
+                            @click="addTacheToTodoList()">Valider</a>
+                    </div>
+
+                </div>
+            </div>
+        </center>
+
+        <ul class="collection with-header">
+            <li class="collection-header">
+                <h4>To-do List</h4>
+            </li>
+            <li class="collection-item" v-for="item in task">
+                {{ item.text }} <a href="#!" class="secondary-content"><i class="material-icons">delete</i></a>
+            </li>
+        </ul>
+
+
+    </div>
+</body>
+
+
+<script src="js/vue.js"></script>
+<script src="js/modal.js"></script>
+
+</html>
