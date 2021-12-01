@@ -1,46 +1,122 @@
 // Script Vue.JS
 const app = Vue.createApp({
-    computed: {
-        id: 0,
-        description: '',
-        task: []
+    mounted() {
+        this.returnNoteList();
+    },
+    data() {
+        return {
+            id: 0,
+            description: '',
+            id_edit: 0,
+            description_edit: '',
+            listOfNote: [],
+        };
     },
     methods: {
-        returnTodoList() {
+
+        /**
+         * Cette fonction permet de retourner l'intégralité des notes
+         * @returns Array de l'ensemble des notes
+         */
+        returnNoteList() {
             // On instancie un array par défaut si on ne trouve pas de liste
-            if (this.getLocalTodoList() == null)
-                localStorage.setItem('listTodo', JSON.stringify([
-                    { id: 1634799994263, text: "Une nouvelle tâche" },
-                    { id: 1634799994264, text: "Une autre tâche" }
+            if (this.getLocalNoteList() == null)
+                localStorage.setItem('listNotes', JSON.stringify([
+                    { id: 1634799994263, text: "Une note" },
+                    { id: 1634799994264, text: "Une autre note" }
                 ]
                 ))
 
-            this.task = this.getLocalTodoList()
-            
+            this.listOfNote = this.getLocalNoteList()
             // On retourne notre liste
-            return this.task
+            return this.listOfNote
         },
 
-        getLocalTodoList() {
-            return JSON.parse(localStorage.getItem('listTodo'))
+        /**
+         * Cette fonction permet de récupérer notre tableau de notes stockées 
+         * dans le local storage
+         * 
+         * @returns Array des notes
+         */
+        getLocalNoteList() {
+            const listOfNotes = JSON.parse(localStorage.getItem('listNotes'))
+            return listOfNotes
         },
 
-        addTacheToTodoList() {
-            let newTodoList = this.returnTodoList()
+        /**
+         * Cette fonction permet d'ajouter une nouvelle notes à notre
+         * liste de notes
+         * 
+         * @returns Nouvelle note
+         */
+        addToListOfNote() {
+            let newNoteList = this.returnNoteList()
             console.log(this.description)
-            newTodoList.push(this.newTache(this.description))
+            newNoteList.push(this.newNote(this.description))
 
-            localStorage.setItem('listTodo',
+            localStorage.setItem('listNotes',
                 JSON.stringify(
-                    newTodoList
+                    newNoteList
                 )
             )
-            this.task = newTodoList
-            return newTodoList
+            this.listOfNote = newNoteList
+            return newNoteList
         },
 
-        newTache(desc) {
+        /**
+         * Cette fonction permet de créer une note et de la retourner par la suite
+         * @param {string} desc 
+         * @returns Une note
+         */
+        newNote(desc) {
             return { id: Date.now(), text: desc }
+        },
+
+        /**
+         * Cette fonction permet de coupé notre chaîne de caractère
+         * @param {string} value 
+         * @param {int} limit 
+         * @returns Chaîne de caractère coupé
+         */
+        returnTruncateString(value, limit) {
+            if (value.length < limit) {
+                return value
+            }
+            const valueToReturn = value.substring(0, limit) + "..."
+            return valueToReturn
+        },
+
+        /**
+         * Cette fonction retourne le nombres de mots dans une chaîne
+         * de caractère
+         * 
+         * @param {string} value 
+         * @returns Entier correspondant aux nombres de mots
+         */
+        returnCountOfWord(value) {
+            const numberWord = value.split(' ').length
+            return numberWord
+        },
+
+        /**
+         * Cette fonction permet d'ouvrir le modal afin d'effectuer
+         * une modification ou une suppression
+         * @param {int} id 
+         */
+        openModalEdit(id) {
+            noteOfEdit = null
+            this.listOfNote.forEach(note => {
+                if (note.id === id) {
+                    this.description_edit = note.text
+                    this.id_edit = note.id
+                }
+            });
+
+            if (note === null) {
+                this.description_edit = `Erreur lors de l\'affichage de cette note (id = ${id})`
+            } else {
+                $('#modal_edit_note').modal('open');
+            }
         }
     }
 }).mount("#app")

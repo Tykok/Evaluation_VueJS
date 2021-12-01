@@ -24,50 +24,90 @@
 
         <center>
             <div class="row">
-                <h1>To-do List en Vue.JS</h1>
+                <h1>Prise de notes</h1>
             </div>
             <br><br>
             <div class="row">
-                <a class="waves-effect waves-light btn modal-trigger" href="#modal_add_tache">Créer une tâche</a>
-
-                <!-- Modal Structure -->
-                <div id="modal_add_tache" class="modal">
-                    <div class="modal-content">
-                        <h4>Créer une tâche</h4>
-                        <p>Donner une description à votre tâche :</p>
-
-                        <div class="row">
-                            <div class="input-field col s12">
-                                <input id="description_todo" type="text" class="validate" v-model="description">
-                                <label for="description_todo">Description de la tâche</label>
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="modal-footer">
-                        <a href="#!" class="modal-close waves-effect waves-green btn-flat"
-                            @click="addTacheToTodoList()">Valider</a>
-                    </div>
-
-                </div>
+                <a class="waves-effect waves-light btn modal-trigger" href="#modal_add_note">Créer une note</a>
             </div>
         </center>
 
-        <ul class="collection with-header">
-            <li class="collection-header">
-                <h4>To-do List</h4>
-            </li>
-            <li class="collection-item" v-for="item in task">
-                {{ item.text }} <a href="#!" class="secondary-content"><i class="material-icons">delete</i></a>
+        <h4>Liste des notes</h4>
+        <ul class="collapsible">
+            <li class="collection-item" v-for="note in listOfNote" :key="note.id">
+                <div class="collapsible-header center" :oncontextmenu="openModalEdit(1)">
+
+                    <div class="row">
+                        <div class="col-3">
+
+                            <div style="color: red;">{{ note.id }} </div>-
+                            <div style="color:blue;">
+                                <b>{{ returnTruncateString(note.text, 30) }}
+                                </b>
+                            </div>
+                        </div>
+                        <div class="col 2">
+                            Nombres de mots : <b>{{ returnCountOfWord(note.text) }}</b>
+                        </div>
+                    </div>
+                </div>
+                <div class="collapsible-body">
+                    {{ note.text }}
+                </div>
             </li>
         </ul>
 
 
     </div>
+
+
+    <!----------------------------------------------------------------------------------------------------------------------------->
+    <!-- Modal Structure -->
+    <div id="modal_add_note" class="modal">
+        <div class="modal-content">
+            <h4>Créer une note</h4>
+            <p>Donner une description à votre note :</p>
+
+            <div class="row">
+                <div class="input-field col s12">
+                    <textarea id="description_note" type="text" class="validate materialize-textarea"
+                        v-model="description"></textarea>
+                    <label for="description_note">Description de la note</label>
+                </div>
+            </div>
+
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-close waves-effect waves-green btn-flat" @click="addToListOfNote()">Valider</a>
+        </div>
+
+    </div>
+
+
+    <div id="modal_edit_note" class="modal">
+        <div class="modal-content">
+            <h4>Actions sur une note</h4>
+            <p>Modifier la description de votre note :</p>
+
+            <div class="row">
+                <div class="input-field col s12">
+                    <textarea id="description_note" type="text" class="validate materialize-textarea"
+                        v-model="description"></textarea>
+                    <label for="description_note">Description de la note</label>
+                </div>
+            </div>
+
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-close waves-effect waves-green btn-flat" @click="addToListOfNote()">Valider</a>
+        </div>
+
+    </div>
+
 </body>
 
 
 <script src="js/vue.js"></script>
-<script src="js/modal.js"></script>
+<script src="js/instance.js"></script>
 
 </html>
