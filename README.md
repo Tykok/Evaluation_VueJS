@@ -21,3 +21,5 @@ L'affichage de la note s'effectue en cliquant sur cette note.
 La séparation via différents composants n'a pas été effectué par ailleurs, mais le code a été commenté (au niveau des fonctions) afin qu'il soit le plus explicite possible.
 
 Lien vers le [GitHub](https://github.com/Tykok/Evaluation_VueJS/tree/main).
+
+Pour toutes remarques / améliorations, ajouter une [issue](https://github.com/Tykok/Evaluation_VueJS/issues)
