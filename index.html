@@ -65,7 +65,7 @@
 
         <!----------------------------------------------------------------------------------------------------------------------------->
         <!-- Modal Structure -->
-        <div id="modal_add_note" class="modal">
+        <div id="modal_add_note" class="modal" style="color: black;">
             <div class="modal-content">
                 <h4>Créer une note</h4>
                 <p>Donner une description à votre note :</p>
@@ -88,11 +88,11 @@
         </div>
 
 
-        <div id="modal_edit_note" class="modal">
+        <div id="modal_edit_note" class="modal" style="color: black;">
             <div class="modal-content">
                 <h4>Actions sur une note</h4>
                 <p>Votre note (id = <b>{{ id }}</b>) :</p>
-
+                <p>Nombres de mots : {{ returnCountOfWord(description) }} </p>
                 <div class="row">
                     <div class="input-field col s12">
                         <textarea id="description_note" type="text" class="validate materialize-textarea"
