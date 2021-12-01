@@ -5,8 +5,6 @@ const app = Vue.createApp({
     },
     data: function () {
         return {
-            id_edit: 0,
-            description_edit: '',
             id: 0,
             description: '',
             listOfNote: [],
@@ -35,7 +33,12 @@ const app = Vue.createApp({
                     { id: 1634799994264, text: "Une autre note" }
                 ])
 
+            // On récupére l'intégralité de nos notes
             this.listOfNote = this.getLocalNoteList()
+
+            // on met en premier la note la plus récente
+            this.listOfNote.sort((a, b) => b.id - a.id)
+
             // On retourne notre liste
             return this.listOfNote
         },
@@ -72,15 +75,6 @@ const app = Vue.createApp({
         },
 
         /**
-         * Cette fonction permet de créer une note et de la retourner par la suite
-         * @param {string} desc 
-         * @returns Une note
-         */
-        newNote(desc) {
-            return { id: Date.now(), text: desc }
-        },
-
-        /**
          * Cette fonction va supprimer une note puis mettre à jour
          * la liste de notes
          * @param {int} id 
@@ -96,7 +90,6 @@ const app = Vue.createApp({
             this.listOfNote = noteToNotPop
             this.setItemLocalStorage(this.listOfNote)
         },
-
 
         /**
          * Cette fonction permet de coupé notre chaîne de caractère
@@ -132,34 +125,48 @@ const app = Vue.createApp({
         openModalEdit(id) {
             this.listOfNote.forEach(note => {
                 if (note.id === id) {
-                    this.description_edit = note.text
-                    this.id_edit = note.id
+                    this.description = note.text
+                    this.id = note.id
                 }
             });
 
-            if (this.id_edit === 0) {
-                this.description_edit = `Erreur lors de l\'affichage de cette note (id = ${id})`
+            if (this.id === 0) {
+                this.description = `Erreur lors de l\'affichage de cette note (id = ${id})`
             } else {
-                console.log(this.description_edit)
+                console.log(this.description)
                 $('#modal_edit_note').modal('open');
             }
         },
 
-
+        /**
+         * Cette fonction permet de mettre à jour une note,
+         * elle va par la suite remettre à vide les variables
+         * id et description
+         * @param {bool} update 
+         */
         updateEditModal(update) {
             if (update) {
 
                 this.listOfNote.forEach(note => {
-                    if (note.id === this.id_edit) {
-                        note.text = this.description_edit
+                    if (note.id === this.id) {
+                        note.text = this.description
                     }
                 });
 
                 this.setItemLocalStorage(this.listOfNote)
             } else {
-                this.description_edit = ''
-                this.id_edit = 0
+                this.description = ''
+                this.id = 0
             }
+        },
+
+        /**
+         * Cette fonction permet de créer une note et de la retourner par la suite
+         * @param {string} desc 
+         * @returns Une note au format attendu
+         */
+        newNote(desc) {
+            return { id: Date.now(), text: desc }
         }
     }
 }).mount("#app")
