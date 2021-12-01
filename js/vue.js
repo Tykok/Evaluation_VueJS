@@ -14,6 +14,10 @@ const app = Vue.createApp({
     },
     methods: {
 
+        setItemLocalStorage(arrayOfNote) {
+            localStorage.setItem('listNotes', JSON.stringify(arrayOfNote))
+        },
+
         /**
          * Cette fonction permet de retourner l'intégralité des notes
          * @returns Array de l'ensemble des notes
@@ -21,11 +25,10 @@ const app = Vue.createApp({
         returnNoteList() {
             // On instancie un array par défaut si on ne trouve pas de liste
             if (this.getLocalNoteList() == null)
-                localStorage.setItem('listNotes', JSON.stringify([
+                this.setItemLocalStorage([
                     { id: 1634799994263, text: "Une note" },
                     { id: 1634799994264, text: "Une autre note" }
-                ]
-                ))
+                ])
 
             this.listOfNote = this.getLocalNoteList()
             // On retourne notre liste
@@ -71,6 +74,24 @@ const app = Vue.createApp({
         newNote(desc) {
             return { id: Date.now(), text: desc }
         },
+
+        /**
+         * Cette fonction va supprimer une note puis mettre à jour
+         * la liste de notes
+         * @param {int} id 
+         */
+        deleteANote(id) {
+            let noteToNotPop = [];
+            this.listOfNote.forEach(note => {
+                if (note.id !== id) {
+                    noteToNotPop.push(note)
+                }
+            });
+
+            this.listOfNote = noteToNotPop
+            this.setItemLocalStorage(this.listOfNote)
+        },
+
 
         /**
          * Cette fonction permet de coupé notre chaîne de caractère
