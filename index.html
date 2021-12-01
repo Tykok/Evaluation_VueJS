@@ -14,6 +14,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
+    <link href="main.css" rel="stylesheet">
     <!--Vue CDN-->
     <script src="https://unpkg.com/vue@next"></script>
 </head>
@@ -22,15 +23,17 @@
 
     <div id="app">
 
+        <br />
         <center>
             <div class="row">
                 <a class="waves-effect waves-light btn modal-trigger" href="#modal_add_note">Créer une note</a>
             </div>
+            <h4>Liste des notes</h4>
         </center>
+        <br />
 
-        <h4>Liste des notes</h4>
         <ul class="collapsible popout">
-            <li class="collection-item" v-for="note in listOfNote" :key="note.id">
+            <li class="collection-item color__collapsible" v-for="note in listOfNote" :key="note.id">
                 <div class="collapsible-header center">
 
                     <div class="row">

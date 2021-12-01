@@ -1,0 +1,16 @@
+body {
+    background-color: black;
+    font-style: serif, sans-serif;
+    color: white;
+}
+
+.color {
+    &__collapsible {
+        background-color: rgb(190, 188, 188);
+        color: black;
+    }
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+}
