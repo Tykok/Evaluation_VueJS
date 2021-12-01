@@ -3,12 +3,12 @@ const app = Vue.createApp({
     mounted() {
         this.returnNoteList();
     },
-    data() {
+    data: function () {
         return {
-            id: 0,
-            description: '',
             id_edit: 0,
             description_edit: '',
+            id: 0,
+            description: '',
             listOfNote: [],
         };
     },
@@ -104,7 +104,6 @@ const app = Vue.createApp({
          * @param {int} id 
          */
         openModalEdit(id) {
-            noteOfEdit = null
             this.listOfNote.forEach(note => {
                 if (note.id === id) {
                     this.description_edit = note.text
@@ -112,9 +111,10 @@ const app = Vue.createApp({
                 }
             });
 
-            if (note === null) {
+            if (this.id_edit === 0) {
                 this.description_edit = `Erreur lors de l\'affichage de cette note (id = ${id})`
             } else {
+                console.log(this.description_edit)
                 $('#modal_edit_note').modal('open');
             }
         }
