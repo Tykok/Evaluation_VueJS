@@ -1,6 +1,9 @@
 // Instance Jquery pour Materialize
 $(document).ready(function () {
-    $('.modal').modal();
+    $('.modal').modal({
+        dismissible: false,
+    }
+    );
 });
 
 // instance du collapsible

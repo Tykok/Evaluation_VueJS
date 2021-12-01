@@ -14,6 +14,11 @@ const app = Vue.createApp({
     },
     methods: {
 
+        /**
+         * Cette fonction permet de mettre à jour le local storage
+         * 
+         * @param {Array} arrayOfNote 
+         */
         setItemLocalStorage(arrayOfNote) {
             localStorage.setItem('listNotes', JSON.stringify(arrayOfNote))
         },
@@ -137,6 +142,23 @@ const app = Vue.createApp({
             } else {
                 console.log(this.description_edit)
                 $('#modal_edit_note').modal('open');
+            }
+        },
+
+
+        updateEditModal(update) {
+            if (update) {
+
+                this.listOfNote.forEach(note => {
+                    if (note.id === this.id_edit) {
+                        note.text = this.description_edit
+                    }
+                });
+
+                this.setItemLocalStorage(this.listOfNote)
+            } else {
+                this.description_edit = ''
+                this.id_edit = 0
             }
         }
     }

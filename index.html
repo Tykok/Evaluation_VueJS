@@ -83,6 +83,7 @@
             <div class="modal-footer">
                 <a href="#!" class="modal-close waves-effect waves-green btn-flat"
                     @click="addToListOfNote()">Valider</a>
+                <a href="#!" class="modal-close waves-effect waves-green btn-flat">Cancel</a>
             </div>
 
         </div>
@@ -91,7 +92,7 @@
         <div id="modal_edit_note" class="modal">
             <div class="modal-content">
                 <h4>Actions sur une note</h4>
-                <p>Modifier la description de votre note (id = <b>{{ id_edit }}</b>) :</p>
+                <p>Votre note (id = <b>{{ id_edit }}</b>) :</p>
 
                 <div class="row">
                     <div class="input-field col s12">
@@ -103,7 +104,8 @@
             </div>
             <div class="modal-footer">
                 <a href="#!" class="modal-close waves-effect waves-green btn-flat"
-                    @click="addToListOfNote()">Valider</a>
+                    @click="updateEditModal(true)">Modifier</a>
+                <a href="#!" class="modal-close waves-effect waves-green btn-flat" @click="updateEditModal(false)">Cancel</a>
             </div>
 
         </div>
